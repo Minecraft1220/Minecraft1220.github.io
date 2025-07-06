@@ -313,25 +313,38 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * Adds Singleplayer and Multiplayer buttons on Main Menu for
 	 * players who have bought the game.
 	 */
-	private void addSingleplayerMultiplayerButtons(int parInt1, int parInt2) {
-		this.buttonList
-				.add(new GuiButton(1, this.width / 2 - 100, parInt1, I18n.format("menu.singleplayer", new Object[0])));
-		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, parInt1 + parInt2 * 1,
-				I18n.format("menu.multiplayer", new Object[0])));
-		if (EaglercraftVersion.mainMenuEnableGithubButton) {
-			this.buttonList.add(
-					new GuiButton(14, this.width / 2 - 100, parInt1 + parInt2 * 2, I18n.format("menu.forkOnGitlab")));
-		} else {
-			if (EagRuntime.getConfiguration().isEnableDownloadOfflineButton()
-					&& (EagRuntime.getConfiguration().getDownloadOfflineButtonLink() != null
-							|| (!EagRuntime.isOfflineDownloadURL() && UpdateService.supported()
-									&& UpdateService.getClientSignatureData() != null))) {
-				this.buttonList.add(downloadOfflineButton = new GuiButton(15, this.width / 2 - 100,
-						parInt1 + parInt2 * 2, I18n.format("update.downloadOffline")));
-				downloadOfflineButton.enabled = !UpdateService.shouldDisableDownloadButton();
-			}
-		}
-	}
+private void addSingleplayerMultiplayerButtons(int parInt1, int parInt2) {
+    this.buttonList.add(new GuiButton(1, this.width / 2 - 100, parInt1, I18n.format("menu.singleplayer")));
+    this.buttonList.add(new GuiButton(2, this.width / 2 - 100, parInt1 + parInt2 * 1,
+            I18n.format("menu.multiplayer")));
+
+    if (EaglercraftVersion.mainMenuEnableGithubButton) {
+        int gap = 4; // ボタン間隔
+        int totalWidth = 200; // 合計幅
+        int modWidth = (totalWidth - gap) / 2; // 左ボタン幅
+        int gitlabWidth = totalWidth - modWidth - gap; // 右ボタン幅
+
+        int xPos = this.width / 2 - totalWidth / 2;
+
+        // 左：Mod
+        this.buttonList.add(new GuiButton(99, xPos, parInt1 + parInt2 * 2, modWidth, 20, "Mod"));
+
+        // 右：Fork on GitLab
+        int gitlabX = xPos + modWidth + gap;
+        this.buttonList.add(new GuiButton(14, gitlabX, parInt1 + parInt2 * 2, gitlabWidth, 20,
+                I18n.format("menu.forkOnGitlab")));
+    } else {
+        if (EagRuntime.getConfiguration().isEnableDownloadOfflineButton()
+                && (EagRuntime.getConfiguration().getDownloadOfflineButtonLink() != null
+                        || (!EagRuntime.isOfflineDownloadURL() && UpdateService.supported()
+                                && UpdateService.getClientSignatureData() != null))) {
+            this.buttonList.add(downloadOfflineButton = new GuiButton(15, this.width / 2 - 100,
+                    parInt1 + parInt2 * 2, I18n.format("update.downloadOffline")));
+            downloadOfflineButton.enabled = !UpdateService.shouldDisableDownloadButton();
+        }
+    }
+}
+
 
 	/**+
 	 * Adds Demo buttons on Main Menu for players who are playing
