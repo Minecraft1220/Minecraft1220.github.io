@@ -51,10 +51,10 @@ public class EaglercraftVersion {
 	
 	// Miscellaneous variables:
 
-	public static final String mainMenuStringA = "";
-	public static final String mainMenuStringB = "Minecraft 1.8.8 Legacy";
+	public static final String mainMenuStringA = "Creation Client 1.0 WASM-GC";
+	public static final String mainMenuStringB = "Minecraft 1.8.8 §b§lLegacy";
 	public static final String mainMenuStringC = "";
-	public static final String mainMenuStringD = "Resources Copyright Mojang AB";
+	public static final String mainMenuStringD = "Copyright Mojang AB. Do not distribute!";
 
 	public static final String mainMenuStringE = "";
 	public static final String mainMenuStringF = "";
